@@ -1,8 +1,9 @@
 #!/bin/bash
 
+LocalPath=${1:-'/Users/bit/Documents/hadoopjob'}
+RemotePath=${2:-'/myjob'}
 # the default node number is 5
-N=${1:-5}
-
+N=5
 
 # start hadoop master container
 sudo docker rm -f hadoop-master &> /dev/null
@@ -11,6 +12,8 @@ sudo docker run -itd \
                 --net=hadoop \
                 -p 50070:50070 \
                 -p 8088:8088 \
+                -p 9000:9000 \
+                -v $LocalPath:$RemotePath \
                 --name hadoop-master \
                 --hostname hadoop-master \
                 chaaaa/hadoop-cluster-dockerfile &> /dev/null
@@ -28,7 +31,7 @@ do
 	                --hostname hadoop-slave$i \
 	                chaaaa/hadoop-cluster-dockerfile &> /dev/null
 	i=$(( $i + 1 ))
-done 
+done
 
 # get into hadoop master container
 sudo docker exec -it hadoop-master bash
