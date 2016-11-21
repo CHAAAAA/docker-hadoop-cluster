@@ -45,6 +45,5 @@ RUN chmod +x ~/start-hadoop.sh && \
 
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format
-RUN /usr/local/hadoop/bin/hdfs datanode -format
 
 CMD [ "sh", "-c", "service ssh start; bash"]
