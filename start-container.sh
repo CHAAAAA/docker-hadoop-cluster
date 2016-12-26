@@ -1,9 +1,11 @@
 #!/bin/bash
 
-LocalPath=${1:-'/Users/bit/Documents/hadoopjob'}
+LocalPath=${1:-'/Users/bit/Documents/DockerFileSharing/hadoopjob'}
 RemotePath=${2:-'/myjob'}
 # the default node number is 5
 N=5
+
+sudo docker network create --driver=bridge hadoop
 
 # start hadoop master container
 sudo docker rm -f hadoop-master &> /dev/null
